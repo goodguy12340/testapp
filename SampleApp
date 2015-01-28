@@ -1,0 +1,102 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace NT.SampleApp
+{
+   public class SampleApp
+    {
+        /// <summary>
+        /// Entry point
+        /// </summary>
+        /// <param name="args"></param>
+        static void Main(string[] args)
+        {
+
+
+            bool userWantsToExit = false;
+
+
+            try
+            {
+
+                while (!userWantsToExit)
+                {
+
+                   
+                    Console.WriteLine("Enter Amount to invest.");
+                    double c = Convert.ToDouble(Console.ReadLine());
+
+                    Console.WriteLine("Enter Extra time.");
+                    double f = Convert.ToDouble(Console.ReadLine());
+
+                    Console.WriteLine("Enter Total Amount to accumulate.");
+                    double x = Convert.ToDouble(Console.ReadLine());
+
+
+                    double result = GetLeastTime(c, f, x);
+
+                    Console.WriteLine("Time  required is " + result);
+                  //  Console.Read();
+
+                    Console.WriteLine("Continue....(Y/N)? ");
+                    string inouetstr = Console.ReadLine();
+
+                    if (inouetstr.ToUpper() == "N")
+                        userWantsToExit = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+           
+        }
+        /// <summary>
+        /// GetLeastTime - Calculates minimum number of seconds
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="f"></param>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static double GetLeastTime(double c, double f, double x)
+        {
+            double rateofincrease = 2;
+            double total = 0.0;
+            double orig = 0;
+            double nextTime = 0;
+
+            if (c >= x)
+            {
+                return ((x / rateofincrease));
+            }
+
+            if (c <= 0) // without this you will end up with endless loop
+            {
+                return 0;
+            }
+
+            while (true)
+            {
+                orig = x / rateofincrease;
+                nextTime = c / rateofincrease + x / (rateofincrease + f);
+              
+
+                if (orig < nextTime) break;
+
+                
+                total += c / rateofincrease;
+                rateofincrease += f;
+            }
+
+            total += x / rateofincrease;
+
+            return total;
+        }
+
+
+    }
+}
