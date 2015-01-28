@@ -1,0 +1,23 @@
+using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NT.SampleApp;
+
+namespace NT.SampleApp.Test
+{
+    [TestClass]
+    public class NTSampleAppTest
+    {
+        [TestMethod]
+        public void GetLeastTimeTest()
+        {
+            //while (iter <= testCaseNum) {
+            double c = 30.0;
+            double f = 2.0;
+            double x = 100.0;
+
+            double expected = 39.1666667;
+            double result = SampleApp.GetLeastTime(c, f, x);
+            Assert.AreEqual(expected, result, 0.001);
+        }
+    }
+}
